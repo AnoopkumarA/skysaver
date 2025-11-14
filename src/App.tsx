@@ -38,8 +38,8 @@ const highlights = [
 const testimonials = [
   {
     initials: 'AG',
-    name: 'Aria Gomez',
-    role: 'Solo Backpacker',
+    name: 'Rovan Wilson',
+    role: 'Student',
     location: 'New York, USA',
     rating: 5,
     savings: '38%',
