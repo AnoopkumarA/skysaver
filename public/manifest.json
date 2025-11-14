@@ -1,0 +1,28 @@
+{
+  "name": "SkySaver Travels - Cheap Flights Anywhere, Anytime",
+  "short_name": "SkySaver",
+  "description": "Find cheap, low-cost flights worldwide. Save up to 52% on flights with personalized flight hunting service.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1428",
+  "theme_color": "#0a1428",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "lifestyle"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
+
