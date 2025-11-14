@@ -1048,13 +1048,13 @@ function App(): JSX.Element {
               </div>
               <div className="flex items-center gap-3 row-auto">
                 <Phone className="h-4 w-4 text-skywave" />
-                <a className="transition hover:text-aurora" href="https://api.whatsapp.com/send?phone=916282272129&text=Hello%20Jeeson%20%F0%9F%91%8B%2C%20I%20want%20to%20book%20a%20flight.%20Please%20help%20me%20with%20the%20details.%0A" target="_blank" rel="noopener">
+                <a className="transition hover:text-aurora"  href="tel:+916282272129" target="_blank" rel="noopener">
                   +91 6282272129
                 </a>
               </div>
               <div className="flex items-center gap-3 row-auto">
               <Phone className="h-4 w-4 text-skywave" />
-                <a className="transition hover:text-aurora" href="https://api.whatsapp.com/send?phone=917025768294&text=Hello%20Anoop%F0%9F%91%8B%2C%20I%20want%20to%20book%20a%20flight.%20Please%20help%20me%20with%20the%20details." target="_blank" rel="noopener">
+                <a className="transition hover:text-aurora"  href="tel:+917025768294" target="_blank" rel="noopener">
                   +91 7025768294
                 </a>
                 </div>
