@@ -96,7 +96,7 @@ const testimonials = [
 const advisors = [
   {
     name: 'Jeeson Jose',
-    role: 'Flight Deal Architect',
+    role: 'Flight Booking',
     quote: '“I specialize in premium cabins and complex itineraries. Tell me the dream route— I’ll make it real.”',
     whatsapp:
       'https://api.whatsapp.com/send?phone=916282272129&text=Hello%20Jeeson%20%F0%9F%91%8B%2C%20I%20want%20to%20book%20a%20flight.%20Please%20help%20me%20with%20the%20details.%0A',
@@ -104,7 +104,7 @@ const advisors = [
   },
   {
     name: 'Anoop kumar',
-    role: 'Fare Strategist',
+    role: 'Flight Booking',
     quote: '“Obsessed with timing flash sales and stacking hidden deals. Ping me when you want results fast.”',
     whatsapp:
       'https://api.whatsapp.com/send?phone=917025768294&text=Hello%20Anoop%F0%9F%91%8B%2C%20I%20want%20to%20book%20a%20flight.%20Please%20help%20me%20with%20the%20details.',
@@ -1076,7 +1076,7 @@ function App(): JSX.Element {
 
             <div className="mt-6 flex items-center gap-3">
               {[
-                { icon: Instagram, href: 'https://instagram.com/skysaver', label: 'Instagram' },
+                { icon: Instagram, href: 'https://www.instagram.com/skysaver2/', label: 'Instagram' },
                 {
                   icon: WhatsappIcon,
                   href: 'https://api.whatsapp.com/send?phone=916282272129&text=Hello%20Jeeson%20%F0%9F%91%8B%2C%20I%20want%20to%20book%20a%20flight.%20Please%20help%20me%20with%20the%20details.%0A',
