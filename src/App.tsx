@@ -646,7 +646,7 @@ function App(): JSX.Element {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-10 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 py-10 max-w-7xl mx-auto">
               {(isMobileView && !showAllAirlines ? airlines.slice(0, 2) : airlines).map((airline) => (
                 <CardContainer key={airline.id} className="inter-var">
                   <CardBody className="relative group/card bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] border-white/[0.2] w-full h-auto rounded-3xl p-6 border backdrop-blur-2xl hover:shadow-2xl hover:shadow-aurora/20 transition-all duration-300">
