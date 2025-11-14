@@ -967,7 +967,7 @@ function App(): JSX.Element {
                   </div>
                 </form>
                 {/* Coming Soon Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none">
+                <div className="absolute inset-0 flex items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none"className="hidden md:flex absolute inset-0 items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none">
                   <div className="text-center px-6">
                     <div className="inline-flex items-center gap-2 rounded-full border border-aurora/30 bg-aurora/10 px-6 py-3 backdrop-blur-sm shadow-lg">
                       <span className="text-2xl font-bold text-aurora tracking-wide">Coming Soon</span>
