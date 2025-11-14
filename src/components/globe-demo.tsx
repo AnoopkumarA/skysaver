@@ -393,7 +393,7 @@ export default function GlobeDemo() {
 
   return (
     <div className="flex items-center justify-center h-full w-full bg-transparent relative">
-      <div className="w-full h-full relative overflow-hidden cursor-pointer">
+      <div className="w-full h-full relative overflow-hidden cursor-pointer rounded-full lg:rounded-none">
         <motion.div
           initial={{
             opacity: 0,
