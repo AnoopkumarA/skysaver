@@ -3,6 +3,13 @@ import { Mail, Phone, Instagram } from 'lucide-react';
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card';
 import GlobeDemo from '@/components/globe-demo';
 
+const navLinks = [
+  { href: '#highlights', label: 'Highlights' },
+  { href: '#map', label: 'Anywhere Anytime' },
+  { href: '#ratings', label: 'Client Love' },
+  { href: '#contact', label: 'Contact' }
+];
+
 const stats = [
   { value: '50+', label: 'Flights Secured' },
   { value: '30%', label: 'Average Savings' },
@@ -178,6 +185,7 @@ function App(): JSX.Element {
   const year = useMemo(() => new Date().getFullYear(), []);
   const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const [visibleHighlights, setVisibleHighlights] = useState<boolean[]>([]);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const testimonialsRef = useRef<HTMLElement>(null);
   const highlightsRef = useRef<HTMLElement>(null);
   
@@ -327,41 +335,98 @@ function App(): JSX.Element {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-aurora/5 to-transparent animate-[borderGlow_6s_ease-in-out_infinite]" />
         </div>
 
-        <nav className="relative z-10 flex flex-wrap items-center justify-between gap-4 px-6 py-6 lg:px-16">
+        <nav className="relative z-30 flex flex-wrap items-center justify-between gap-4 px-6 py-6 lg:px-16">
           <span className="text-xs font-semibold uppercase tracking-[0.45em] text-white/90 lg:text-sm">
             SkySaver
           </span>
 
           <ul className="hidden flex-1 items-center justify-center gap-10 text-sm font-medium text-white/80 lg:flex">
-            <li>
-              <a className="nav-link" href="#highlights">
-                Highlights
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#map">
-                Anywhere Anytime
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#ratings">
-                Client Love
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#contact">
-                Contact
-              </a>
-            </li>
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a className="nav-link" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
 
+          <div className="flex items-center gap-3">
+            <button
+              className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-white/20 text-white/80 transition hover:border-aurora hover:text-aurora lg:hidden"
+              type="button"
+              aria-label="Toggle navigation"
+              onClick={() => setIsNavOpen((prev) => !prev)}
+            >
+              <span
+                className={`block h-[2px] w-5 bg-current transition-transform duration-300 ${
+                  isNavOpen ? 'translate-y-1 rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`block h-[2px] w-5 bg-current transition duration-300 ${
+                  isNavOpen ? 'opacity-0' : 'opacity-100'
+                } `}
+              />
+              <span
+                className={`block h-[2px] w-5 bg-current transition-transform duration-300 ${
+                  isNavOpen ? '-translate-y-1 -rotate-45' : ''
+                }`}
+              />
+            </button>
+
+            <a
+              className="hidden btn-primary shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_25px_45px_rgba(45,212,191,0.25)] sm:inline-flex"
+              href="#contact"
+            >
+              Book With Us
+            </a>
+          </div>
+        </nav>
+
+        <div
+          className={`lg:hidden fixed inset-0 z-20 bg-slate-950/80 backdrop-blur-sm transition-opacity duration-300 ${
+            isNavOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setIsNavOpen(false)}
+        />
+
+        <div
+          className={`lg:hidden fixed inset-x-4 top-4 z-30 rounded-3xl border border-white/10 bg-slate-950/95 p-6 shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-all duration-300 ${
+            isNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-[0.45em] text-white/90">SkySaver</span>
+            <button
+              type="button"
+              aria-label="Close navigation"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition hover:border-aurora hover:text-aurora"
+              onClick={() => setIsNavOpen(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <ul className="mt-6 space-y-4 text-sm font-medium text-white/80">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  className="block rounded-2xl px-4 py-3 text-center transition hover:bg-white/5"
+                  href={link.href}
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
           <a
-            className="btn-primary shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_25px_45px_rgba(45,212,191,0.25)]"
+            className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-aurora to-skywave px-6 py-3 text-xs font-semibold text-slate-950 shadow-glow transition hover:-translate-y-0.5"
             href="#contact"
+            onClick={() => setIsNavOpen(false)}
           >
             Book With Us
           </a>
-        </nav>
+        </div>
 
         <div className="relative z-10 max-w-4xl px-6 pb-16 pt-10 sm:pb-32 lg:px-16 lg:pt-24">
           <h1 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
