@@ -36,7 +36,6 @@
     <meta name="msapplication-TileColor" content="#0a1428" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="google-site-verification" content="NY75ZLjFObPIvc0_ticWNnqALpemzP-T2UWlLfif47I" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -47,66 +46,29 @@
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TravelAgency",
-      "name": "SkySaver Travels",
-      "description": "Cheap, low-cost flights worldwide. Save up to 52% on flights with personalized flight hunting service.",
-      "url": "https://skysaver.vercel.app",
-      "logo": "https://skysaver.vercel.app/logo.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+91-6282272129",
-        "contactType": "customer service",
-        "availableLanguage": ["English"]
-      },
-      "sameAs": [
-        "https://www.instagram.com/skysaver2/"
-      ],
-      "priceRange": "$$",
-      "areaServed": "Worldwide",
-      "serviceType": "Flight Booking Service"
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "SkySaver Travels",
-      "url": "https://skysaver.vercel.app",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://skysaver.vercel.app/?s={search_term_string}",
-        "query-input": "required name=search_term_string"
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "SkySaver",
+        "description": "Find cheap flights worldwide. Save up to 52% using personalized human-powered flight hunting.",
+        "url": "https://skysaver.vercel.app",
+        "logo": "https://skysaver.vercel.app/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-6282272129",
+          "contactType": "customer service",
+          "availableLanguage": "English"
+        },
+        "sameAs": [
+          "https://www.instagram.com/skysaver2/"
+        ]
       }
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "SkySaver Travels",
-      "url": "https://skysaver.vercel.app",
-      "logo": "https://skysaver.vercel.app/logo.png",
-      "description": "Cheap flights, low-cost flight booking service worldwide",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "IN"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+91-6282272129",
-        "contactType": "Customer Service"
-      }
-    }
-    </script>
+      </script>
+      
   </head>
   <body class="antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
 
