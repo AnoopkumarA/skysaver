@@ -186,6 +186,8 @@ function App(): JSX.Element {
   const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const [visibleHighlights, setVisibleHighlights] = useState<boolean[]>([]);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [showAllAirlines, setShowAllAirlines] = useState(false);
   const testimonialsRef = useRef<HTMLElement>(null);
   const highlightsRef = useRef<HTMLElement>(null);
   
@@ -262,6 +264,20 @@ function App(): JSX.Element {
     return () => {
       highlightCards?.forEach((card) => observer.unobserve(card));
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleResize = (): void => {
+      const isMobile = window.innerWidth < 1024;
+      setIsMobileView(isMobile);
+      setShowAllAirlines(!isMobile);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -631,7 +647,7 @@ function App(): JSX.Element {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-10 max-w-7xl mx-auto">
-              {airlines.map((airline) => (
+              {(isMobileView && !showAllAirlines ? airlines.slice(0, 2) : airlines).map((airline) => (
                 <CardContainer key={airline.id} className="inter-var">
                   <CardBody className="relative group/card bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] border-white/[0.2] w-full h-auto rounded-3xl p-6 border backdrop-blur-2xl hover:shadow-2xl hover:shadow-aurora/20 transition-all duration-300">
                     <CardItem
@@ -702,6 +718,16 @@ function App(): JSX.Element {
                 </CardContainer>
               ))}
             </div>
+            {isMobileView && (
+              <div className=" relative -mb-[7rem] -top-[5.4rem] flex justify-center lg:hidden">
+                <button
+                  className="rounded-full border border-white/30 px-6 py-2 text-xs font-semibold text-white/80 transition hover:border-aurora hover:text-aurora"
+                  onClick={() => setShowAllAirlines((prev) => !prev)}
+                >
+                  {showAllAirlines ? 'Show Less' : 'View All Airlines'}
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
