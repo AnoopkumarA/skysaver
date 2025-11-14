@@ -581,7 +581,7 @@ function App(): JSX.Element {
             {/* Globe and Content Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               {/* Globe Component - Left Side */}
-              <div className="relative w-full h-[400px] lg:h-[450px] order-2 lg:order-1 flex items-center justify-center">
+              <div className="relative w-full max-w-[280px] mx-auto aspect-square lg:max-w-none lg:aspect-auto lg:h-[450px] order-2 lg:order-1 flex items-center justify-center">
                 <GlobeDemo />
               </div>
 
@@ -886,7 +886,7 @@ function App(): JSX.Element {
                 </div>
               </div>
 
-              <form className="grid gap-6 rounded-[26px] border border-white/15 bg-slate-950/70 p-10 shadow-[0_35px_80px_rgba(2,6,23,0.65)] backdrop-blur-3xl md:grid-cols-2">
+              <form className="grid gap-6 rounded-[26px] hidden border border-white/15 bg-slate-950/70 p-10 shadow-[0_35px_80px_rgba(2,6,23,0.65)] backdrop-blur-3xl md:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="name">
                     Name
