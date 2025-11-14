@@ -71,7 +71,7 @@ const testimonials = [
     initials: 'SS',
     name: 'Sebin Saji',
     role: 'Student',
-    location: 'Ernakulam,Kerala',
+    location: 'Kerala',
     rating: 5,
     savings: '35%',
     destination: 'Toowoomb,aAustralia',
@@ -886,84 +886,98 @@ function App(): JSX.Element {
                 </div>
               </div>
 
-              <form className="hidden md:grid gap-6 rounded-[26px] border border-white/15 bg-slate-950/70 p-10 shadow-[0_35px_80px_rgba(2,6,23,0.65)] backdrop-blur-3xl md:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="name">
-                    Name
-                  </label>
-                  <input
-                    className="form-field"
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Your full name"
-                    required
-                  />
-                </div>
+              <div className="relative">
+                <form className="grid gap-6 rounded-[26px] border border-white/15 bg-slate-950/70 p-10 shadow-[0_35px_80px_rgba(2,6,23,0.65)] backdrop-blur-3xl md:grid-cols-2 opacity-75">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="name">
+                      Name
+                    </label>
+                    <input
+                      className="form-field"
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Your full name"
+                      disabled
+                    />
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    className="form-field"
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="you@email.com"
-                    required
-                  />
-                </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="email">
+                      Email
+                    </label>
+                    <input
+                      className="form-field"
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="you@email.com"
+                      disabled
+                    />
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="destination">
-                    Destination &amp; Dates
-                  </label>
-                  <input
-                    className="form-field"
-                    type="text"
-                    id="destination"
-                    name="destination"
-                    placeholder="Where to? When?"
-                    required
-                  />
-                </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="destination">
+                      Destination &amp; Dates
+                    </label>
+                    <input
+                      className="form-field"
+                      type="text"
+                      id="destination"
+                      name="destination"
+                      placeholder="Where to? When?"
+                      disabled
+                    />
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="budget">
-                    Budget &amp; Cabin Preference
-                  </label>
-                  <input
-                    className="form-field"
-                    type="text"
-                    id="budget"
-                    name="budget"
-                    placeholder="e.g. $1200, Business Class"
-                  />
-                </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="budget">
+                      Budget &amp; Cabin Preference
+                    </label>
+                    <input
+                      className="form-field"
+                      type="text"
+                      id="budget"
+                      name="budget"
+                      placeholder="e.g. $1200, Business Class"
+                      disabled
+                    />
+                  </div>
 
-                <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="message">
-                    What matters most?
-                  </label>
-                  <textarea
-                    className="form-field min-h-[150px]"
-                    id="message"
-                    name="message"
-                    placeholder="Budget, airlines you love, schedule needs..."
-                    required
-                  />
-                </div>
+                  <div className="flex flex-col gap-2 md:col-span-2">
+                    <label className="text-sm font-semibold uppercase tracking-wide text-white/70" htmlFor="message">
+                      What matters most?
+                    </label>
+                    <textarea
+                      className="form-field min-h-[150px]"
+                      id="message"
+                      name="message"
+                      placeholder="Budget, airlines you love, schedule needs..."
+                      disabled
+                    />
+                  </div>
 
-                <div className="md:col-span-2">
-                  <button className="btn-primary w-full" type="submit">
-                    Send Request
-                  </button>
-                  <p className="mt-3 text-center text-xs uppercase tracking-[0.35em] text-white/40">
-                    We reply with 3 curated options in under an hour
-                  </p>
+                  <div className="md:col-span-2">
+                    <button className="btn-primary w-full opacity-50 cursor-not-allowed" type="button" disabled>
+                      Send Request
+                    </button>
+                    <p className="mt-3 text-center text-xs uppercase tracking-[0.35em] text-white/40">
+                      We reply with 3 curated options in under an hour
+                    </p>
+                  </div>
+                </form>
+                {/* Coming Soon Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none">
+                  <div className="text-center px-6">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-aurora/30 bg-aurora/10 px-6 py-3 backdrop-blur-sm shadow-lg">
+                      <span className="text-2xl font-bold text-aurora tracking-wide">Coming Soon</span>
+                    </div>
+                    <p className="mt-4 text-sm text-white/70 max-w-xs mx-auto">
+                      Contact form will be available soon. Please use WhatsApp or Instagram to reach us.
+                    </p>
+                  </div>
                 </div>
-              </form>
+              </div>
             </div>
 
             <div className="space-y-6">
