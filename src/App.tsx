@@ -74,7 +74,7 @@ const testimonials = [
     location: 'Kerala',
     rating: 5,
     savings: '35%',
-    destination: 'Toowoomb,aAustralia',
+    destination: 'Australia',
     quote: 'They helped me find the perfect flight time and a great price. No hidden charges, no confusion. Highly reliable!',
     verified: true,
     date: '3 weeks ago'
@@ -86,7 +86,7 @@ const testimonials = [
     location: 'Ahmedabad',
     rating: 5,
     savings: '20%',
-    destination: 'Multiple Cities',
+    destination: 'New York',
     quote: 'My meeting got postponed and they handled the rescheduling very quickly. Excellent customer care.',
     verified: true,
     date: '1 week ago'
