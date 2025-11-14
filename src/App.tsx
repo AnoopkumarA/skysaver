@@ -877,10 +877,10 @@ function App(): JSX.Element {
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-[0.4em] text-white/50">Deals Secured</p>
-                    <p className="text-2xl font-semibold text-white">2.5K+</p>
+                    <p className="text-2xl font-semibold text-white">50+</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-[0.4em] text-white/50">24/7</p>
+                    <p className="text-xs uppercase tracking-[0.4em] text-white/50">16/7</p>
                     <p className="text-2xl font-semibold text-white">Human Desk</p>
                   </div>
                 </div>
