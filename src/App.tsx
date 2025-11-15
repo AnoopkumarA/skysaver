@@ -518,12 +518,7 @@ function App(): JSX.Element {
                     transitionDelay: visibleHighlights[index] ? `${index * 0.1}s` : '0s'
                   }}
                 >
-                  {/* Animated Gradient Border */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aurora/0 via-skywave/0 to-blossom/0 opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:from-aurora/25 group-hover:via-skywave/25 group-hover:to-blossom/25 blur-md" />
-                  
-                  {/* Glow Effect */}
-                  <div className="absolute -inset-[3px] -z-10 rounded-3xl bg-gradient-to-r from-aurora via-skywave to-blossom opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-20" />
-
+                 
                   {/* Icon Container with Animation */}
                   <div className="relative mb-6 inline-flex">
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-aurora/30 via-skywave/30 to-blossom/30 blur-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -547,10 +542,7 @@ function App(): JSX.Element {
                   {/* Decorative Line */}
                   <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-aurora via-skywave to-blossom transition-all duration-700 group-hover:w-full" />
 
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer-slow" />
-                  </div>
+                  
 
                   {/* Floating Particles Effect */}
                   <div className="absolute right-4 top-4 h-2 w-2 rounded-full bg-aurora/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:animate-pulse" />
@@ -764,12 +756,7 @@ function App(): JSX.Element {
                     transitionDelay: visibleCards[index] ? `${index * 0.1}s` : '0s'
                   }}
                 >
-                  {/* Animated Gradient Border */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aurora/0 via-skywave/0 to-blossom/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:from-aurora/30 group-hover:via-skywave/30 group-hover:to-blossom/30 blur-sm" />
                   
-                  {/* Glow Effect */}
-                  <div className="absolute -inset-[2px] -z-10 rounded-3xl bg-gradient-to-r from-aurora via-skywave to-blossom opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-30" />
-
                   {/* Card Content */}
                   <div className="relative z-10">
                     <header className="mb-6">
@@ -840,10 +827,7 @@ function App(): JSX.Element {
                     </div>
                   </div>
 
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer-slow" />
-                  </div>
+                 
                 </article>
               ))}
             </div>
