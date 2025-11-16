@@ -14,7 +14,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
     email: '',
     role: '',
     location: '',
-    rating: 5,
+    rating: 0,
     review_text: '',
     savings: '',
     destination: '',
@@ -47,8 +47,8 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
 
     try {
       // Validate required fields
-      if (!formData.name.trim() || !formData.review_text.trim()) {
-        throw new Error('Please fill in name and review text');
+      if (!formData.name.trim() || !formData.review_text.trim() || !formData.savings?.trim() || !formData.email?.trim() || !formData.role?.trim() || !formData.destination?.trim() || !formData.location?.trim()) {
+        throw new Error('All fields are Mandatory.');
       }
 
       // Insert review into Supabase
@@ -60,7 +60,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
           location: formData.location?.trim() || null,
           rating: formData.rating,
           review_text: formData.review_text.trim(),
-          savings: formData.savings?.trim() || null,
+          savings: formData.savings?.trim(),
           destination: formData.destination?.trim() || null,
           verified: false // New reviews start as unverified
         }
@@ -77,7 +77,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
         email: '',
         role: '',
         location: '',
-        rating: 5,
+        rating: 0,
         review_text: '',
         savings: '',
         destination: '',
@@ -185,7 +185,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-white/70" htmlFor="email">
-                Email
+                Email *
               </label>
               <input
                 className="form-field text-sm py-2"
@@ -204,7 +204,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-white/70" htmlFor="role">
-                Role
+                Role *
               </label>
               <input
                 className="form-field text-sm py-2"
@@ -220,7 +220,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-white/70" htmlFor="location">
-                Location
+                Location *
               </label>
               <input
                 className="form-field text-sm py-2"
@@ -236,7 +236,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-white/70" htmlFor="destination">
-                Destination
+                Destination *
               </label>
               <input
                 className="form-field text-sm py-2"
@@ -252,7 +252,7 @@ export default function ReviewForm({ isOpen = true, onClose, onReviewSubmitted }
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-white/70" htmlFor="savings">
-                Savings
+                Savings *
               </label>
               <input
                 className="form-field text-sm py-2"
