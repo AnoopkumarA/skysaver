@@ -1,7 +1,10 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { Mail, Phone, Instagram } from 'lucide-react';
+import { Mail, Phone, Instagram, MessageSquare, ChevronDown } from 'lucide-react';
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card';
 import GlobeDemo from '@/components/globe-demo';
+import ReviewForm from '@/components/ReviewForm';
+import { useReviews } from '@/hooks/useReviews';
+import { Review } from '@/lib/supabase';
 
 const navLinks = [
   { href: '#highlights', label: 'Highlights' },
@@ -181,6 +184,33 @@ const airlines = [
   }
 ];
 
+// Helper function to get initials from name
+const getInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
+
+// Helper function to format date
+const formatDate = (dateString?: string): string => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffTime = Math.abs(now.getTime() - date.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return '1 day ago';
+  if (diffDays < 7) return `${diffDays} days ago`;
+  if (diffDays < 14) return '1 week ago';
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+  if (diffDays < 60) return '1 month ago';
+  return `${Math.floor(diffDays / 30)} months ago`;
+};
+
 function App(): JSX.Element {
   const year = useMemo(() => new Date().getFullYear(), []);
   const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
@@ -188,8 +218,52 @@ function App(): JSX.Element {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
   const [showAllAirlines, setShowAllAirlines] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [showAllReviews, setShowAllReviews] = useState(false);
   const testimonialsRef = useRef<HTMLElement>(null);
   const highlightsRef = useRef<HTMLElement>(null);
+  
+  // Fetch reviews from Supabase
+  const { reviews, loading: reviewsLoading, refetch: refetchReviews } = useReviews();
+  
+  // Combine Supabase reviews with existing testimonials
+  const displayReviews = useMemo(() => {
+    // Convert Supabase reviews to display format
+    const supabaseReviews = reviews.map((review) => ({
+      ...review,
+      initials: getInitials(review.name),
+      date: formatDate(review.created_at)
+    } as Review & { initials: string; date: string }));
+    
+    // Convert existing testimonials to display format
+    const existingTestimonials = testimonials.map((t) => ({
+      id: t.name,
+      name: t.name,
+      role: t.role,
+      location: t.location,
+      rating: t.rating,
+      savings: t.savings,
+      destination: t.destination,
+      review_text: t.quote,
+      verified: t.verified,
+      date: t.date,
+      initials: t.initials
+    } as Review & { initials: string; date: string }));
+    
+    // Combine both: Supabase reviews first (newest), then existing testimonials
+    return [...supabaseReviews, ...existingTestimonials];
+  }, [reviews]);
+
+  // Reset visible cards when showAllReviews changes
+  useEffect(() => {
+    if (showAllReviews) {
+      // When expanding, mark all cards as visible immediately
+      setVisibleCards(Array(displayReviews.length).fill(true));
+    } else {
+      // When collapsing, reset to empty array to trigger animations again
+      setVisibleCards([]);
+    }
+  }, [showAllReviews, displayReviews.length]);
   
   const particles = useMemo(
     () =>
@@ -232,7 +306,7 @@ function App(): JSX.Element {
     return () => {
       cards?.forEach((card) => observer.unobserve(card));
     };
-  }, []);
+  }, [displayReviews, showAllReviews]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -742,95 +816,169 @@ function App(): JSX.Element {
               </p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-              {testimonials.map((item, index) => (
-                <article
-                  key={item.name}
-                  data-index={index}
-                  className={`testimonial-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] p-6 backdrop-blur-2xl transition-all duration-700 ${
-                    visibleCards[index]
-                      ? 'translate-y-0 opacity-100'
-                      : 'translate-y-12 opacity-0'
-                  } hover:-translate-y-3 hover:border-aurora/40 hover:shadow-[0_20px_60px_rgba(45,212,191,0.15)]`}
-                  style={{
-                    transitionDelay: visibleCards[index] ? `${index * 0.1}s` : '0s'
-                  }}
-                >
-                  
-                  {/* Card Content */}
-                  <div className="relative z-10">
-                    <header className="mb-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-center gap-4">
-                          {/* Animated Avatar */}
-                          <div className="relative">
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-aurora/40 to-skywave/40 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-aurora/30 via-skywave/30 to-blossom/30 text-lg font-bold uppercase tracking-wide text-white shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
-                              {item.initials}
-                            </div>
-                            {item.verified && (
-                              <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-aurora text-xs text-white shadow-lg">
-                                ✓
+            {/* Write Review Button */}
+            <div className="mb-12 flex justify-center">
+              <button
+                onClick={() => setIsReviewModalOpen(true)}
+                className="btn-primary inline-flex items-center gap-2 shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_25px_45px_rgba(45,212,191,0.25)]"
+              >
+                <MessageSquare className="h-4 w-4" />
+                <span>Write a Review</span>
+              </button>
+            </div>
+
+            {/* Review Form Modal */}
+            <ReviewForm
+              isOpen={isReviewModalOpen}
+              onClose={() => setIsReviewModalOpen(false)}
+              onReviewSubmitted={refetchReviews}
+            />
+
+            {/* Reviews Grid */}
+            {reviewsLoading ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="text-white/70">Loading reviews...</div>
+              </div>
+            ) : (
+              <>
+                <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+                  {(isMobileView && !showAllReviews ? displayReviews.slice(0, 3) : displayReviews).map((item, index) => {
+                    // Calculate the actual index in the full displayReviews array
+                    const actualIndex = isMobileView && !showAllReviews 
+                      ? index  // When showing first 3, index matches
+                      : displayReviews.findIndex(r => (r.id || r.name) === (item.id || item.name));
+                    const cardIndex = actualIndex >= 0 ? actualIndex : index;
+                    return (
+                  <article
+                    key={item.id || item.name}
+                    data-index={cardIndex}
+                    className={`testimonial-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] p-6 backdrop-blur-2xl transition-all duration-700 ${
+                      visibleCards[cardIndex]
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-12 opacity-0'
+                    } hover:-translate-y-3 hover:border-aurora/40 hover:shadow-[0_20px_60px_rgba(45,212,191,0.15)]`}
+                    style={{
+                      transitionDelay: visibleCards[cardIndex] ? `${cardIndex * 0.1}s` : '0s'
+                    }}
+                  >
+                    
+                    {/* Card Content */}
+                    <div className="relative z-10">
+                      <header className="mb-6">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-center gap-4">
+                            {/* Animated Avatar */}
+                            <div className="relative">
+                              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-aurora/40 to-skywave/40 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                              <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-aurora/30 via-skywave/30 to-blossom/30 text-lg font-bold uppercase tracking-wide text-white shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                                {(item as any).initials || getInitials(item.name)}
                               </div>
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white transition-colors duration-300 group-hover:text-aurora">
-                              {item.name}
-                            </h3>
-                            <p className="mt-1 text-xs font-medium text-white/70">{item.role}</p>
-                            <div className="mt-2 flex items-center gap-2">
-                              <span className="text-xs text-white/50">{item.location}</span>
-                              <span className="h-1 w-1 rounded-full bg-white/30" />
-                              <span className="text-xs text-white/50">{item.date}</span>
+                              {item.verified && (
+                                <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-aurora text-xs text-white shadow-lg">
+                                  ✓
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="text-lg font-semibold text-white transition-colors duration-300 group-hover:text-aurora">
+                                {item.name}
+                              </h3>
+                              <p className="mt-1 text-xs font-medium text-white/70">{item.role}</p>
+                              <div className="mt-2 flex items-center gap-2">
+                                <span className="text-xs text-white/50">{item.location}</span>
+                                {item.date && (
+                                  <>
+                                    <span className="h-1 w-1 rounded-full bg-white/30" />
+                                    <span className="text-xs text-white/50">{item.date}</span>
+                                  </>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </header>
+                      </header>
 
-                    {/* Animated Star Rating */}
-                    <div className="mb-5 flex items-center gap-1">
-                      {Array.from({ length: item.rating }).map((_, i) => (
-                        <svg
-                          key={i}
-                          className="h-4 w-4 text-yellow-400 transition-all duration-300 group-hover:scale-125"
-                          style={{ transitionDelay: `${i * 0.05}s` }}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
+                      {/* Animated Star Rating */}
+                      <div className="mb-5 flex items-center gap-1">
+                        {Array.from({ length: item.rating || 5 }).map((_, i) => (
+                          <svg
+                            key={i}
+                            className="h-4 w-4 text-yellow-400 transition-all duration-300 group-hover:scale-125"
+                            style={{ transitionDelay: `${i * 0.05}s` }}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+
+                      {/* Review Text */}
+                      <blockquote className="relative mb-6">
+                        <div className="absolute -left-2 -top-2 text-4xl font-serif leading-none text-aurora/20">
+                          "
+                        </div>
+                        <p className="relative text-[15px] leading-relaxed text-white/90 transition-colors duration-300 group-hover:text-white">
+                          {item.review_text}
+                        </p>
+                      </blockquote>
+
+                      {/* Badge Section */}
+                      {(item.savings || item.destination) && (
+                        <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-white/10">
+                          {item.savings && (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-aurora/20 to-skywave/20 px-3 py-1.5 text-xs font-semibold text-aurora backdrop-blur-sm">
+                              <span className="text-green-400">💰</span>
+                              Saved {item.savings}
+                            </span>
+                          )}
+                          {item.destination && (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm">
+                              <span className="text-blue-400">✈️</span>
+                              {item.destination}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Quote */}
-                    <blockquote className="relative mb-6">
-                      <div className="absolute -left-2 -top-2 text-4xl font-serif leading-none text-aurora/20">
-                        "
-                      </div>
-                      <p className="relative text-[15px] leading-relaxed text-white/90 transition-colors duration-300 group-hover:text-white">
-                        {item.quote}
-                      </p>
-                    </blockquote>
+                   
+                  </article>
+                    );
+                  })}
+                </div>
 
-                    {/* Badge Section */}
-                    <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-white/10">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-aurora/20 to-skywave/20 px-3 py-1.5 text-xs font-semibold text-aurora backdrop-blur-sm">
-                        <span className="text-green-400">💰</span>
-                        Saved {item.savings}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm">
-                        <span className="text-blue-400">✈️</span>
-                        {item.destination}
-                      </span>
-                    </div>
+                {/* View All Reviews Button - Mobile Only */}
+                {isMobileView && displayReviews.length > 3 && !showAllReviews && (
+                  <div className="mt-8 flex justify-center">
+                    <button
+                      onClick={() => setShowAllReviews(true)}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-aurora/50 hover:bg-white/10 hover:text-aurora"
+                    >
+                      <span>View All Reviews</span>
+                      <ChevronDown className="h-4 w-4" />
+                    </button>
                   </div>
+                )}
 
-                 
-                </article>
-              ))}
-            </div>
+                {/* Show Less Button - Mobile Only */}
+                {isMobileView && showAllReviews && displayReviews.length > 3 && (
+                  <div className="mt-8 flex justify-center">
+                    <button
+                      onClick={() => {
+                        setShowAllReviews(false);
+                        // Scroll to top of reviews section
+                        testimonialsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-aurora/50 hover:bg-white/10 hover:text-aurora"
+                    >
+                      <span>Show Less</span>
+                      <ChevronDown className="h-4 w-4 rotate-180" />
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </section>
 
@@ -951,7 +1099,7 @@ function App(): JSX.Element {
                   </div>
                 </form>
                 {/* Coming Soon Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none"className="hidden md:flex absolute inset-0 items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none">
+                <div className="hidden md:flex absolute inset-0 items-center justify-center rounded-[26px] bg-gradient-to-br from-slate-950/70 to-slate-950/50 backdrop-blur-sm z-10 pointer-events-none">
                   <div className="text-center px-6">
                     <div className="inline-flex items-center gap-2 rounded-full border border-aurora/30 bg-aurora/10 px-6 py-3 backdrop-blur-sm shadow-lg">
                       <span className="text-2xl font-bold text-aurora tracking-wide">Coming Soon</span>
