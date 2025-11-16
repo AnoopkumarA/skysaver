@@ -816,6 +816,7 @@ function App(): JSX.Element {
               </p>
             </div>
 
+<<<<<<< HEAD
             {/* Write Review Button */}
             <div className="mb-12 flex justify-center">
               <button
@@ -892,6 +893,37 @@ function App(): JSX.Element {
                                     <span className="text-xs text-white/50">{item.date}</span>
                                   </>
                                 )}
+=======
+            <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+              {testimonials.map((item, index) => (
+                <article
+                  key={item.name}
+                  data-index={index}
+                  className={`testimonial-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] p-6 backdrop-blur-2xl transition-all duration-700 ${
+                    visibleCards[index]
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-12 opacity-0'
+                  } hover:-translate-y-3 hover:border-aurora/40 hover:shadow-[0_20px_60px_rgba(45,212,191,0.15)]`}
+                  style={{
+                    transitionDelay: visibleCards[index] ? `${index * 0.1}s` : '0s'
+                  }}
+                >
+                  
+                  {/* Card Content */}
+                  <div className="relative z-10">
+                    <header className="mb-6">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          {/* Animated Avatar */}
+                          <div className="relative">
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-aurora/40 to-skywave/40 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-aurora/30 via-skywave/30 to-blossom/30 text-lg font-bold uppercase tracking-wide text-white shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                              {item.initials}
+                            </div>
+                            {item.verified && (
+                              <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-aurora text-xs text-white shadow-lg">
+                                ✓
+>>>>>>> 505be015a87134a72b64a05f5b9979019f88b798
                               </div>
                             </div>
                           </div>
@@ -961,6 +993,7 @@ function App(): JSX.Element {
                   </div>
                 )}
 
+<<<<<<< HEAD
                 {/* Show Less Button - Mobile Only */}
                 {isMobileView && showAllReviews && displayReviews.length > 3 && (
                   <div className="mt-8 flex justify-center">
@@ -979,6 +1012,12 @@ function App(): JSX.Element {
                 )}
               </>
             )}
+=======
+                 
+                </article>
+              ))}
+            </div>
+>>>>>>> 505be015a87134a72b64a05f5b9979019f88b798
           </div>
         </section>
 
