@@ -1,4 +1,4 @@
-# SkySaver SEO Implementation Checklist
+# FlySETGO SEO Implementation Checklist
 
 ## ✅ Completed SEO Tasks
 
@@ -47,15 +47,15 @@ Create and add these images to the `/public` folder:
 
 #### Google Search Console
 1. Go to https://search.google.com/search-console
-2. Add property: `https://skysaver.vercel.app`
+2. Add property: `https://flysetgo.vercel.app`
 3. Verify ownership (HTML tag, DNS, or Google Analytics)
-4. Submit sitemap: `https://skysaver.vercel.app/sitemap.xml`
+4. Submit sitemap: `https://flysetgo.vercel.app/sitemap.xml`
 
 #### Bing Webmaster Tools
 1. Go to https://www.bing.com/webmasters
-2. Add site: `https://skysaver.vercel.app`
+2. Add site: `https://flysetgo.vercel.app`
 3. Verify ownership
-4. Submit sitemap: `https://skysaver.vercel.app/sitemap.xml`
+4. Submit sitemap: `https://flysetgo.vercel.app/sitemap.xml`
 
 ### 3. Google Business Profile (if applicable)
 - Create/claim Google Business Profile
