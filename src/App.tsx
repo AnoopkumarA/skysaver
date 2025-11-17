@@ -36,7 +36,7 @@ const highlights = [
     icon: '🌍',
     title: 'Go Global for Less',
     description:
-      'Europe, Asia, Americas, or island hopping—no destination is off limits when you book with SkySaver.'
+      'Europe, Asia, Americas, or island hopping—no destination is off limits when you book with FlySETGO.'
   },
   {
     icon: '🤝',
@@ -427,7 +427,7 @@ function App(): JSX.Element {
 
         <nav className="relative z-30 flex flex-wrap items-center justify-between gap-4 px-6 py-6 lg:px-16">
           <span className="text-xs font-semibold uppercase tracking-[0.45em] text-white/90 lg:text-sm">
-            SkySaver
+            FlySETGO
           </span>
 
           <ul className="hidden flex-1 items-center justify-center gap-10 text-sm font-medium text-white/80 lg:flex">
@@ -486,7 +486,7 @@ function App(): JSX.Element {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-[0.45em] text-white/90">SkySaver</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.45em] text-white/90">FlySETGO</span>
             <button
               type="button"
               aria-label="Close navigation"
@@ -1152,7 +1152,7 @@ function App(): JSX.Element {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#0c162f]/40 to-[#050915]" />
         <div className="relative z-10 grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
           <div>
-            <h3 className="font-display text-xl text-white">SkySaver </h3>
+            <h3 className="font-display text-xl text-white">FlySETGO </h3>
             <p className="mt-3 text-white/70">
               Two flight hunters cutting costs, not corners. We combine human expertise with real-time tech to uncover the
               smartest flight deals on the planet.
@@ -1246,7 +1246,7 @@ function App(): JSX.Element {
 
         <div className="relative z-10 mt-10 border-t border-white/10 pt-6 text-xs text-white/50">
           <div className="flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between">
-            <span>© {year} SkySaver. Anywhere. Anytime. Any Flight.</span>
+            <span>© {year} FlySETGO. Anywhere. Anytime. Any Flight.</span>
             <span className="text-white/40">Privacy · Terms · Cookies</span>
           </div>
         </div>
