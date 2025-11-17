@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://flysetgo.vercel.app/sitemap.xml
+Sitemap: https://skysaver.vercel.app/sitemap.xml
